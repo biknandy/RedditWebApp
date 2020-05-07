@@ -20,9 +20,9 @@ var redditApp = {
         let body;
         if (redditApp.utils.isImageUrl(redditData[i].url)){
           if (redditData[i].url.substr(-4)=="gifv"){
-            body = `<iframe src=${redditData[i].url} width="200" height="220" scrolling="no" style="border:none;"></iframe>`
+            body = `<img id = "img" class = "img-fluid" src=${redditData[i].url.slice(0, -1)} alt="Card Image">`
           } else {
-            body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image cap">`
+            body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image">`
           }
         } else if (redditData[i].self_text !== null) {
           body = `<p class = "card-text"> ${redditData[i].self_text} </p>`
