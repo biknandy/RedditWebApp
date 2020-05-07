@@ -24,7 +24,7 @@ var redditApp = {
           } else {
             body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image">`
           }
-        } else if (redditData[i].self_text !== null) {
+        } else if (redditData[i].self_text !== undefined) {
           body = `<p class = "card-text"> ${redditData[i].self_text} </p>`
         } else {
           body = '<p></p>'
