@@ -52,18 +52,16 @@
 
     <script type="text/javascript" src="script.js"></script>
     <script>
+      // On document ready
       $(document).ready(function() {
+        //ajax request from backend server
         $.ajax({url: "http://localhost:8080/api/reddit/", success: function(result){
+          //parse data and format
           var redditHome = JSON.parse(result);
           console.log(redditHome)
+
+          //render onto page 
           redditApp.scripts.renderRedditList(redditHome.data);
-          // $("#subreddit").text(redditHome.data[0].subreddit_name_prefixed);
-          // // $("#updoot").append("<i class='fas fa-arrow-up'></i> &nbsp" + redditHome.data[0].ups);
-          // $("#postTitle").text(redditHome.data[0].title);
-          // $("#img").attr("src",redditHome.data[0].url);
-          // $("#author").text(redditHome.data[0].author);
-          // $("#redLink").attr("href", "https://reddit.com/" + redditHome.data[0].permalink);
-          // $("#redLink").text("Reddit Link");
         }});
       });
     </script>
