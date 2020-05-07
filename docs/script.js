@@ -19,7 +19,11 @@ var redditApp = {
           //check if gif or not
         let body;
         if (redditApp.utils.isImageUrl(redditData[i].url)){
-          body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image cap">`
+          if (redditData[i].url.substr(-4)=="gifv"){
+            body = `<iframe src=${redditData[i].url} width="200" height="220" scrolling="no" style="border:none;"></iframe>`
+          } else {
+            body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image cap">`
+          }
         } else if (redditData[i].self_text !== null) {
           body = `<p class = "card-text"> ${redditData[i].self_text} </p>`
         } else {
