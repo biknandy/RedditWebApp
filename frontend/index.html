@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> Edify Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/15868bb940.js" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+
+    <div class = "container-fluid">
+      <div class = "row">
+        <div class = "col">
+          <div>
+            <h1 class= "ml-3 mt-3"> Reddit Web App </h1>
+          </div>
+        </div>
+      </div>
+      <div class = "row" id = "contentPanel">
+        <div class = "col-12">
+          <div id = "cardDeck" class="card-columns">
+            <!-- <div class="card">
+              <div class = "card-header">
+                <button type="button" class="btn btn-primary btn-lg btn-block">
+                    <h6 id = "subreddit"> </h6>
+                </button>
+              </div>
+              <div class="card-body">
+                <h5 id = "postTitle" class="card-title"></h5>
+                <p class="card-text"></p>
+                <img id = "img" class = "img-fluid" alt="Card image cap">
+                <div class="container-fluid">
+                  <div class = "row">
+                    <p class="card-text col-6 mt-2"><a id = "redLink" target="_blank" ></a></p>
+                    <p class="card-text col-6 text-right mt-2"><small id = "author" class="text-muted"></small></p>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
+    <script>
+      $(document).ready(function() {
+        $.ajax({url: "http://localhost:8080/api/reddit/", success: function(result){
+          var redditHome = JSON.parse(result);
+          console.log(redditHome)
+          redditApp.scripts.renderRedditList(redditHome.data);
+          // $("#subreddit").text(redditHome.data[0].subreddit_name_prefixed);
+          // // $("#updoot").append("<i class='fas fa-arrow-up'></i> &nbsp" + redditHome.data[0].ups);
+          // $("#postTitle").text(redditHome.data[0].title);
+          // $("#img").attr("src",redditHome.data[0].url);
+          // $("#author").text(redditHome.data[0].author);
+          // $("#redLink").attr("href", "https://reddit.com/" + redditHome.data[0].permalink);
+          // $("#redLink").text("Reddit Link");
+        }});
+      });
+    </script>
+
+  </body>
+</html>
