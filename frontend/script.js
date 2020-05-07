@@ -1,12 +1,18 @@
-// namespaced functions to use
+// namespaced functions for application
 var redditApp = {
   utils: {
 
   },
 
   scripts: {
+
+    // reddit data formatting and rending in list view
     renderRedditList: (redditData) => {
+      //loop through all elements of data array
       for (i in redditData){
+        // checks for data go here
+
+        //card HTML to be rendered to page 
         var card = $(`<div class="card"><div class = "card-header"><button type="button" id =${redditData[i].id} class="btn btn-primary btn-lg btn-block">\
           <h6 id = "subreddit"> ${redditData[i].subreddit_name_prefixed} </h6></button></div>\
           <div class="card-body">\

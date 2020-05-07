@@ -13,6 +13,7 @@ app.use(cors());
 
 const port = 8080;
 
+//new snoowrapper
 const r = new snoowrap({
   userAgent: config.userAgent,
   clientId: config.clientId,
@@ -20,10 +21,15 @@ const r = new snoowrap({
   refreshToken: config.refreshToken,
 });
 
+// Set route for reddit Data
 app.get('/api/reddit/', (req, res) => {
-  r.getSubreddit('popular').getHot({limit: 5}).then(redditData =>{
+
+  //get the top 10 posts of r/popular from reddit
+  r.getSubreddit('popular').getHot({limit: 10}).then(redditData =>{
+    //show in terminal
     console.log(redditData)
 
+    //send data in a stringified obejct
     res.send(
       JSON.stringify({
         data: redditData
@@ -31,18 +37,6 @@ app.get('/api/reddit/', (req, res) => {
     );
   });
 })
-
-// app.post('/api/reddit/', (req,res) =>{
-//   r.getSubreddit('popular').getHot({limit: 1}).then(redditData =>{
-//     console.log(redditData)
-//
-//     res.send(
-//       JSON.stringify({
-//         data: redditData
-//       })
-//     );
-//   });
-// });
 
 
 
