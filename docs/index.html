@@ -67,8 +67,10 @@
               redditApp.scripts.renderRedditList(redditHome.data);
             },
             complete: () => {
-              // Schedule the next request when the current one's complete
-              setTimeout(getData, 5000);
+
+              // Refresh every 2 minutes
+              setTimeout(()=> {redditApp.scripts.emptyList(); getData();}, 120000);
+
             }
           });
         })();

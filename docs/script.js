@@ -1,9 +1,11 @@
 // namespaced functions for application
 var redditApp = {
   utils: {
+
+    //check if the string has the following characters (image)
     isImageUrl: (url) => {
       return(url.match(/\.(jpeg|jpg|gif|png|gifv)$/) != null);
-    }
+    },
 
   },
 
@@ -13,19 +15,24 @@ var redditApp = {
     renderRedditList: (redditData) => {
       //loop through all elements of data array
       for (i in redditData){
-        // checks for data go here
 
-        //check if photo or not
-          //check if gif or not
+        //conditional rendering of html
         let body;
+
+        //check if image exists
         if (redditApp.utils.isImageUrl(redditData[i].url)){
+          //check if "gifv" extension - if so HTML can't load it so turn it into image/gif
           if (redditData[i].url.substr(-4)=="gifv"){
             body = `<img id = "img" class = "img-fluid" src=${redditData[i].url.slice(0, -1)} alt="Card Image">`
+          // otherwise it's a regular photo
           } else {
             body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image">`
           }
+        //if not an image, there may be body text in which case show it
         } else if (redditData[i].self_text !== undefined) {
           body = `<p class = "card-text"> ${redditData[i].self_text} </p>`
+
+        //otherwise no body
         } else {
           body = '<p></p>'
         }
@@ -40,9 +47,18 @@ var redditApp = {
                 <p class="card-text col-6 mt-2"><a id = "redLink" href="https://reddit.com/${redditData[i].permalink} target="_blank">Reddit Link</a></p>\
                 <p class="card-text col-6 text-right mt-2"><small id = "author" class="text-muted"> ${redditData[i].author}</small></p>\
               </div></div></div></div>`);
+
+        //append HTML to the card deck
         card.appendTo('#cardDeck');
       }
+    },
+
+    //Empty card list to get new reddit information
+    emptyList: () => {
+      $('#cardDeck').empty();
     }
+
   }
+
 
 }
