@@ -34,9 +34,14 @@ var redditApp = {
         }
       //if not an image, there may be body text in which case show it (but don't show if the text is extremely long)
       } else if (bodyText != "" && bodyText.length < 500) {
-        return `<p class = "card-text"> ${bodyText} </p>`
+        return `<p> ${bodyText} </p>`
+
+      //if a regular url
+      } else if (!url.includes("reddit.com") && !url.includes("redd.it")) {
+        return `<p> <a href="${url}" target="_blank"> ${url} </a> </p>`
+      }
       //otherwise no body
-      } else {
+      else {
         return '<p></p>'
       }
     }, //END: generateBody
