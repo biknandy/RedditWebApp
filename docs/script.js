@@ -90,7 +90,7 @@ var homeApp = {
         var updoots = redditData[i].ups;
 
         //populate search elements
-        searchElements[postID] = title + subredditName
+        searchElements[postID] = title.toLowerCase() + subredditName.toLowerCase()
 
         //conditional rendering of html
         let body = homeApp.scripts.generateBody(url, bodyText, false);
@@ -134,7 +134,7 @@ var homeApp = {
         //filter out erroneous keys such as return, control, space, etc.
         if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
           //grab user input
-          var userInput = $('#searchBox').val();
+          var userInput = $('#searchBox').val().toLowerCase();
 
           //get all Values and Keys
           var allValues = Object.values(searchItems);
@@ -151,10 +151,10 @@ var homeApp = {
           for (x in allKeys){
             //if the item is not in the list, remove it
             if (!Object.keys(searchItems).includes(allKeys[x])){
-              $(`#${allKeys[x]}-card`).hide(500);
+              $(`#${allKeys[x]}-card`).hide(400);
             //otherwise show it
             } else {
-              $(`#${allKeys[x]}-card`).show(500);
+              $(`#${allKeys[x]}-card`).show(400);
             }
           }
         }
