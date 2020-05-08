@@ -18,7 +18,7 @@ var homeApp = {
     getKeyByValue: (object, value) => {
       return Object.keys(object).find(key => object[key] === value);
     }, //END: getKeyByValue
-  },
+  }, //END: Utils
 
   //general scripts for application
   scripts: {
@@ -55,7 +55,7 @@ var homeApp = {
       //make jquery work
       jQuery.noConflict();
 
-      //retreive elements from event body and set to modal
+      //retreive elements from event body and set to modal/ show modal
       body = homeApp.scripts.generateBody(event.data.url, event.data.selftext, true)
       $('#modalSub').text(event.data.subreddit_name_prefixed);
       $('#modalSub').attr('href', "https://reddit.com/"+ event.data.permalink);
@@ -64,7 +64,6 @@ var homeApp = {
       $('#modalUps').html('<i class="fas fa-arrow-up"></i> &nbsp;' + event.data.ups);
       $('#modalAuthor').text(event.data.author);
       $(`#modalUpButton`).click({id: event.data.id}, homeApp.scripts.upvote);
-
       $('#postModal').modal('show');
 
 
@@ -160,146 +159,15 @@ var homeApp = {
         }
       })
 
+      //don't actually search for anything by the search button
       $("#searchForm").submit((e) =>{
         e.preventDefault();
       })
 
-    },
+    }, //END: searchContent
 
 
-  }
+  } //END: scripts
 
 
 }
-
-// function runportalSearch(){
-//
-// 	//keyup detects when a keyboard key is released
-// 	$('#praevium-search-box').on('keyup', function(e) {
-// 		//32 is a code that verifies the key is a character
-// 		//16 is a code that filters out the shift key which was a problem for underscores
-// 		//filters out keys like control, return, space, etc
-// 	    if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
-//
-// 	    	var value = $('#praevium-search-box').val();
-// 	        var noWhitespaceValue = value.replace(/\s+/g, '');
-// 	        var noWhitespaceCount = noWhitespaceValue.length;
-//
-// 	        //clear search results if count is less than 2
-// 	        if(noWhitespaceCount < 2){
-//
-// 	        	$("#search-results-container").slideUp(250);
-// 	        	$("#praevium-search-content").hide();
-//
-// 	        }
-//
-// 	        //perform query for runs if 2 or more characters are entered
-// 	        if (noWhitespaceCount >= 2){
-//
-// 	        	$("#praevium-search-content").show();
-// 	        	$("#search-results-container").slideDown(400);
-//
-// 	        	$.post(baseUrl + "snapshot/snapshot_search", {query: noWhitespaceValue})
-// 	        	//on success
-//     			.then(function(data){
-//
-//     				//convert JSON string to array of JS objects
-//             		var runDataObjArray = JSON.parse(data);
-//
-//             		//initalize variable and pre-fill with header content
-//             		var searchResultsHtml = "<h3 class=\"font-weight-light\">Search Results: \"" + noWhitespaceValue + "\"</h3><small>Press 'Enter' to navigate to the portal of the first result</small>";
-//             		//iterate through search results and create html strings
-//             		$.each(runDataObjArray, function(key, runData){
-//
-//             			searchResultsHtml = searchResultsHtml +
-//
-//             				"<ul class=\"list-group mb-2\">" +
-// 								"<li class=\"list-group-item d-flex justify-content-between align-items-center\">" +
-// 								    "<div>" +
-// 								    	"<h5 class=\"d-inline alert alert-success border-success px-1 py-0\"><strong>" + runData.run_formatted + "</strong></h5>" +
-// 								    	"<h6 class=\"d-inline font-weight-light px-1 mt-1\">" + runData.type_id + "</h6>" +
-// 								    "</div>" +
-//
-// 								    "<span> <a href=\"/overview/" + runData.type_id + "/" + runData.run_formatted + "\" class=\"standard-link search-result-portal-link\">Portal</a></span>" +
-// 								"</li>" +
-//
-// 								"<li class=\"list-group-item\">" +
-// 							 		"<div>" + runData.purpose_of_run + "</div>" +
-// 							 	"</li>" +
-// 							"</ul>";
-//             		});
-//
-// 					//write search results html to DOM
-//             		$("#praevium-search-content").html(searchResultsHtml);
-//
-//     			}); //END: $.post(baseUrl + "snapshot/snapshot_search", {query: noWhitespaceValue})
-//
-// 	        } //END: if (noWhitespaceCount >= 2){
-//
-// 	    } //END: if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
-//
-// 	}); //END: $('#praevium-search-box').on('keyup', function(e) {
-//
-// 	//show or hide search results if the user click in or out of the search box
-// 	$('#praevium-search-box').focus(function() {
-//     	var value = $("#praevium-search-box").val();
-// 	    var noWhitespaceValue = value.replace(/\s+/g, '');
-// 	    var noWhitespaceCount = noWhitespaceValue.length;
-// 	    if(noWhitespaceCount >= 2){
-// 	        $("#praevium-search-content").show();
-// 	        $("#search-results-container").slideDown(500);
-// 	    }
-//
-// 	}).blur(function() {
-// 		var value = $("#praevium-search-box").val();
-// 	    var noWhitespaceValue = value.replace(/\s+/g, '');
-// 	    var noWhitespaceCount = noWhitespaceValue.length;
-// 	    if(noWhitespaceCount >= 2){
-// 	    	//check to see if mouse is over search content results
-// 	    	var isHovered = $("#praevium-search-content").is(":hover");
-// 	    	//if not, hide the search results
-// 	    	if(isHovered === false){
-// 	    		$("#search-results-container").slideUp(250);
-// 	    		$("#praevium-search-content").hide();
-// 	    		$('#praevium-search-box').val("");
-// 	    	} else{
-//
-// 	    		//bind click event to DOM to close up search results if user clicks outside of search content or search
-// 	    		$(document).mouseup(function (e){
-//
-// 					var container = $("#praevium-search-content, #praevium-search-box");
-//
-// 					if (!container.is(e.target) && container.has(e.target).length === 0){
-//
-// 						$("#search-results-container").slideUp(250);
-// 	    				$("#praevium-search-content").hide();
-// 	    				$('#praevium-search-box').val("");
-//
-// 					}
-//
-// 				});
-//
-// 	    	}
-//
-// 	    }
-//
-// 	}) //END: $('#praevium-search-box').focus(function() {
-//
-// 	//govern behavior of enter key when it's pressed in the context of the searchbox
-// 	//binds keypress function to searchbox
-// 	$('#praevium-search-box').keypress(function(e){
-//
-// 		//if enter was pressed, evaluate search results and navigate to top result
-// 		if ( e.which == 13 ) {
-// 			//prevent default beahvior
-// 			e.preventDefault();
-// 			//grabs the first result portal link
-// 			var portalLink = $('.search-result-portal-link').attr('href');
-// 			//navigate to the portal for that result
-// 			window.location.href = portalLink;
-//
-// 		}
-//
-// 	});
-//
-// }
