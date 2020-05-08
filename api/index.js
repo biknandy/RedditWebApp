@@ -27,7 +27,7 @@ app.get('/api/reddit/', (req, res) => {
   //get the top 10 posts of r/popular from reddit
   r.getSubreddit('popular').getHot({limit: 10}).then(redditData =>{
     //show in terminal
-    console.log(redditData)
+    // console.log(redditData)
 
     //send data in a stringified obejct
     res.send(
@@ -37,7 +37,6 @@ app.get('/api/reddit/', (req, res) => {
     );
   });
 })
-
 
 
 app.listen(port, () => console.log(`App listening at http://localhost:${port}`))
