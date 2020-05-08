@@ -20,13 +20,15 @@ var redditApp = {
   scripts: {
 
     //generate Body pased on image or text
-    generateBody: (url, bodyText) => {
+    generateBody: (url, bodyText, flag) => {
       //check if image exists
       if (redditApp.utils.isImageUrl(url)){
         //check if "gifv" extension - if so HTML can't load it so turn it into image/gif
         if (url.substr(-4)=="gifv"){
           return `<img id = "img" class = "img-fluid" src=${url.slice(0, -1)} alt="Card Image">`
         // otherwise it's a regular photo
+        } else if (flag) {
+          return `<img id = "img" class = "img-fluid" src=${url} alt="Card image">`
         } else {
           return `<img style="max-height:500px;" id = "img" class = "img-fluid" src=${url} alt="Card image">`
         }
@@ -46,7 +48,7 @@ var redditApp = {
       jQuery.noConflict();
 
       //retreive elements from event body and set to modal
-      body = redditApp.scripts.generateBody(event.data.url, event.data.selftext)
+      body = redditApp.scripts.generateBody(event.data.url, event.data.selftext, true)
       $('#modalSub').text(event.data.subreddit_name_prefixed);
       $('#modalSub').attr('href', "https://reddit.com/"+ event.data.permalink);
       $('#modalTitle').text(event.data.title)
@@ -76,7 +78,7 @@ var redditApp = {
         var updoots = redditData[i].ups;
 
         //conditional rendering of html
-        let body = redditApp.scripts.generateBody(url, bodyText);
+        let body = redditApp.scripts.generateBody(url, bodyText, false);
 
 
         //card HTML to be rendered to page
