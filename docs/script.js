@@ -1,5 +1,7 @@
 // namespaced functions for application
 var redditApp = {
+
+  //utility functions
   utils: {
 
     //check if the string has the following characters (image)
@@ -14,8 +16,10 @@ var redditApp = {
     } //END: getObjectFromArray
   },
 
+  //general scripts for application
   scripts: {
 
+    //generate Body pased on image or text
     generateBody: (url, bodyText) => {
       //check if image exists
       if (redditApp.utils.isImageUrl(url)){
@@ -33,13 +37,15 @@ var redditApp = {
       } else {
         return '<p></p>'
       }
-    },
+    }, //END: generateBody
 
+    //render the Modal for a button click
     renderModal: (event) => {
-      //get id of button click
-      //var post = redditApp.utils.getObjectFromArray(event.data.id, event.data.postData);
 
+      //make jquery work
       jQuery.noConflict();
+
+      //retreive elements from event body and set to modal
       body = redditApp.scripts.generateBody(event.data.url, event.data.selftext)
       $('#modalSub').text(event.data.subreddit_name_prefixed);
       $('#modalSub').attr('href', "https://reddit.com/"+ event.data.permalink);
@@ -57,6 +63,7 @@ var redditApp = {
       //loop through all elements of data array
       for (i in redditData){
 
+        //set readable variables
         var postID = redditData[i].id;
         var url = redditData[i].url;
         var bodyText = redditData[i].selftext;
@@ -65,8 +72,6 @@ var redditApp = {
         var link = redditData[i].permalink;
         var postAuthor = redditData[i].author;
         var updoots = redditData[i].ups;
-
-
 
         //conditional rendering of html
         let body = redditApp.scripts.generateBody(url, bodyText);
@@ -85,7 +90,7 @@ var redditApp = {
         //append HTML to the card deck
         card.appendTo('#cardDeck');
 
-        // say your selector and click handler looks something like this...
+        // click handler for each of the list view header button
         $(`#${redditData[i].id}`).click(redditData[i], redditApp.scripts.renderModal);
 
       }
