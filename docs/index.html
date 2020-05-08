@@ -54,15 +54,26 @@
     <script>
       // On document ready
       $(document).ready(function() {
-        //ajax request from backend server
-        $.ajax({url: "http://localhost:8080/api/reddit/", success: function(result){
-          //parse data and format
-          var redditHome = JSON.parse(result);
-          console.log(redditHome)
 
-          //render onto page 
-          redditApp.scripts.renderRedditList(redditHome.data);
-        }});
+        (getData = () => {
+          $.ajax({
+            url: "http://localhost:8080/api/reddit/",
+            success: (result) => {
+              //parse data and format
+              var redditHome = JSON.parse(result);
+              console.log(redditHome)
+
+              //render onto page
+              redditApp.scripts.renderRedditList(redditHome.data);
+            },
+            complete: () => {
+              // Schedule the next request when the current one's complete
+              setTimeout(getData, 5000);
+            }
+          });
+        })();
+
+
       });
     </script>
 
