@@ -126,25 +126,29 @@ var homeApp = {
 
     searchContent: (searchables) => {
 
+      //light copy of items
+      var searchItems = Object.assign({}, searchables);
 
       $("#searchBox").on('keyup', (e) =>{
+
         if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
           var userInput = $('#searchBox').val();
           console.log(userInput)
 
-          var validValues = Object.values(searchables);
-          var validKeys = Object.keys(searchables);
+          var validValues = Object.values(searchItems);
+          var validKeys = Object.keys(searchItems);
           for (i in validValues){
             if (!validValues[i].includes(userInput)){
-              delete searchables[homeApp.utils.getKeyByValue(searchables, validValues[i])];
+              delete searchItems[homeApp.utils.getKeyByValue(searchItems, validValues[i])];
             }
           }
-          console.log(searchables)
+          console.log(searchItems)
         }
       })
 
       $("#searchForm").submit((e) =>{
         e.preventDefault();
+        console.log(searchables)
       })
 
     },
