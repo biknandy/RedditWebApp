@@ -19,9 +19,9 @@
   <body>
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <h4 class = "text-center text-white mb-2"> Your Favorites </h4>
-      <button type="button" class="btn btn-primary btn-md btn-block">Testing</button>
-      <button type="button" class="btn btn-primary btn-md btn-block">Testing</button>
+      <h4 class = "text-center text-white mb-2"> <i class="fas fa-heart"></i> Favorites </h4>
+      <button type="button" class="btn btn-primary btn-md btn-block mt-2">Testing</button>
+      <button type="button" class="btn btn-primary btn-md btn-block mt-2">Testing</button>
 
     </div>
     <div class = "main">
@@ -89,9 +89,18 @@
 
 
     <script>
+      
+
+      // open and close Sidebar for favorites
       openNav = () => {
-        $("#mySidebar").css("width", "20vw");
-        $("#main").css("margin-left", "20vw");
+        //Mobile Responsive window sidebar
+        if ($(window).width() < 700){
+          $("#mySidebar").css("width", "50%");
+          $("#main").css("margin-left", "50%");
+        } else {
+          $("#mySidebar").css("width", "20vw");
+          $("#main").css("margin-left", "20vw");
+        }
       }
 
       closeNav = () => {
@@ -115,7 +124,7 @@
               homeApp.scripts.renderRedditList(redditHome.data);
             },
             complete: () => {
-              // Refresh every 2 minutes
+              // Refresh every 5 minutes
               setTimeout(()=> {homeApp.scripts.emptyList(); getData();}, 300000);
 
             }

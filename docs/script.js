@@ -72,6 +72,9 @@ var homeApp = {
     // reddit data formatting and rending in list view
     renderRedditList: (redditData) => {
 
+      //list of favorite items
+      var favorites = []
+
       //create directory of searchable objects
       var searchElements = {}
 
@@ -101,19 +104,32 @@ var homeApp = {
           <div class="card-body">\
             <h5 id = "postTitle" class="card-title">${title}</h5>` + body +
             `<div class="container-fluid"><div class = "row">\
-                <p class="card-text col-6 mt-2"><a id = "redLink" href="https://reddit.com/${link}" target="_blank">Link</a></p>\
+                <div id="${postID}-fav" class="card-text col-6 mt-2"><i class="heart far fa-heart"></i> </div>\
                 <p class="card-text col-6 text-right mt-2"><small id = "author" class="text-muted"> ${postAuthor}</small></p>\
               </div></div></div></div>`);
 
         //append HTML to the card deck
         card.appendTo('#cardDeck');
 
+
+
         // click handler for each of the list view header button
-        $(`#${redditData[i].id}`).click(redditData[i], homeApp.scripts.renderModal);
+        $(`#${postID}`).click(redditData[i], homeApp.scripts.renderModal);
+
+        $(`#${postID}-fav`).click(function(){
+          favorites.push(postID);
+          console.log(favorites)
+        });
 
       }
 
-      console.log(searchElements)
+
+
+      //Toggle click of heart
+      $(".heart").click(function() {
+        $(this).toggleClass("far fas");
+      });
+
       //activate searchBar
       homeApp.scripts.searchContent(searchElements);
     }, //END: renderRedditList
