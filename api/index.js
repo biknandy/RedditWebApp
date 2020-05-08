@@ -38,13 +38,5 @@ app.get('/api/reddit/', (req, res) => {
   });
 })
 
-app.get('/api/reddit/upvote', (req, res) => {
-  // console.log(req.body);
-  const id = req.body;
-  //upvote a post based on ID
-  r.getSubmission(id).upvote();
-})
-
-
 
 app.listen(port, () => console.log(`App listening at http://localhost:${port}`))

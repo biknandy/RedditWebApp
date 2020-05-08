@@ -51,9 +51,9 @@ var redditApp = {
       $('#modalSub').attr('href', "https://reddit.com/"+ event.data.permalink);
       $('#modalTitle').text(event.data.title)
       $('#modalBody').html(body);
-      $('#modalUps').text(event.data.ups);
+      $('#modalUps').html('<i class="fas fa-arrow-up"></i> &nbsp;' + event.data.ups);
       $('#modalAuthor').text(event.data.author);
-
+      $(`#modalUpButton`).click({id: event.data.id}, redditApp.scripts.upvote);
       // event.preventDefault();
 
       $('#postModal').modal('show');
