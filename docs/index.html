@@ -55,6 +55,7 @@
       // On document ready
       $(document).ready(function() {
 
+        //callback function to get ajax data in a 2minute interval
         (getData = () => {
           $.ajax({
             url: "http://localhost:8080/api/reddit/",
@@ -67,7 +68,6 @@
               redditApp.scripts.renderRedditList(redditHome.data);
             },
             complete: () => {
-
               // Refresh every 2 minutes
               setTimeout(()=> {redditApp.scripts.emptyList(); getData();}, 120000);
 
@@ -75,9 +75,7 @@
           });
         })();
 
-
       });
     </script>
-
   </body>
 </html>
