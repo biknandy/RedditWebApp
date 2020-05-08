@@ -1,5 +1,5 @@
 // namespaced functions for application
-var redditApp = {
+var homeApp = {
 
   //utility functions
   utils: {
@@ -13,7 +13,11 @@ var redditApp = {
     getObjectFromArray: (id, dataArr) => {
       var result = dataArr.find (obj => {return obj.id == id});
       return result;
-    } //END: getObjectFromArray
+    }, //END: getObjectFromArray
+
+    getKeyByValue: (object, value) => {
+      return Object.keys(object).find(key => object[key] === value);
+    }, //END: getKeyByValue
   },
 
   //general scripts for application
@@ -22,7 +26,7 @@ var redditApp = {
     //generate Body pased on image or text
     generateBody: (url, bodyText, flag) => {
       //check if image exists
-      if (redditApp.utils.isImageUrl(url)){
+      if (homeApp.utils.isImageUrl(url)){
         //check if "gifv" extension - if so HTML can't load it so turn it into image/gif
         if (url.substr(-4)=="gifv"){
           return `<img id = "img" class = "img-fluid" src=${url.slice(0, -1)} alt="Card Image">`
@@ -52,14 +56,14 @@ var redditApp = {
       jQuery.noConflict();
 
       //retreive elements from event body and set to modal
-      body = redditApp.scripts.generateBody(event.data.url, event.data.selftext, true)
+      body = homeApp.scripts.generateBody(event.data.url, event.data.selftext, true)
       $('#modalSub').text(event.data.subreddit_name_prefixed);
       $('#modalSub').attr('href', "https://reddit.com/"+ event.data.permalink);
       $('#modalTitle').text(event.data.title)
       $('#modalBody').html(body);
       $('#modalUps').html('<i class="fas fa-arrow-up"></i> &nbsp;' + event.data.ups);
       $('#modalAuthor').text(event.data.author);
-      $(`#modalUpButton`).click({id: event.data.id}, redditApp.scripts.upvote);
+      $(`#modalUpButton`).click({id: event.data.id}, homeApp.scripts.upvote);
 
       $('#postModal').modal('show');
 
@@ -68,6 +72,10 @@ var redditApp = {
 
     // reddit data formatting and rending in list view
     renderRedditList: (redditData) => {
+
+      //create directory of searchable objects
+      var searchElements = {}
+
       //loop through all elements of data array
       for (i in redditData){
 
@@ -81,8 +89,11 @@ var redditApp = {
         var postAuthor = redditData[i].author;
         var updoots = redditData[i].ups;
 
+        //populate search elements
+        searchElements[postID] = title + subredditName
+
         //conditional rendering of html
-        let body = redditApp.scripts.generateBody(url, bodyText, false);
+        let body = homeApp.scripts.generateBody(url, bodyText, false);
 
 
         //card HTML to be rendered to page
@@ -98,18 +109,45 @@ var redditApp = {
         //append HTML to the card deck
         card.appendTo('#cardDeck');
 
-
-
         // click handler for each of the list view header button
-        $(`#${redditData[i].id}`).click(redditData[i], redditApp.scripts.renderModal);
+        $(`#${redditData[i].id}`).click(redditData[i], homeApp.scripts.renderModal);
 
       }
+
+      console.log(searchElements)
+      //activate searchBar
+      homeApp.scripts.searchContent(searchElements);
     }, //END: renderRedditList
 
     //Empty card list to get new reddit information
     emptyList: () => {
       $('#cardDeck').empty();
     }, //END: emptyList
+
+    searchContent: (searchables) => {
+
+
+      $("#searchBox").on('keyup', (e) =>{
+        if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
+          var userInput = $('#searchBox').val();
+          console.log(userInput)
+
+          var validValues = Object.values(searchables);
+          var validKeys = Object.keys(searchables);
+          for (i in validValues){
+            if (!validValues[i].includes(userInput)){
+              delete searchables[homeApp.utils.getKeyByValue(searchables, validValues[i])];
+            }
+          }
+          console.log(searchables)
+        }
+      })
+
+      $("#searchForm").submit((e) =>{
+        e.preventDefault();
+      })
+
+    },
 
 
   }

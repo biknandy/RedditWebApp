@@ -19,9 +19,9 @@
 
     <div class = "container-fluid">
       <div class = "row">
-        <div class = "col">
+        <div class = "col d-flex justify-content-center">
           <div>
-            <h1 class= "ml-3 mt-3 text-white"> Reddit Web App </h1>
+            <h1 class= "ml-3 mt-3 text-white"> Reddit WebApp </h1>
           </div>
         </div>
       </div>
@@ -29,9 +29,9 @@
         <div class = "col-12 d-flex justify-content-center">
           <div style="background-color: #121212" class ="card border-primary">
             <div class = "card-body">
-              <form class="form-inline">
-                <input style="width: 30vw" class="form-control form-control-md mr-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-md btn-primary" type="submit">Search</button>
+              <form id ="searchForm" class="form-inline">
+                <input id = "searchBox" style="width: 30vw" class="form-control form-control-md mr-2" type="text" placeholder="Search">
+                <button class="btn btn-md btn-primary"><i class="fas fa-search"></i></button>
               </form>
             </div>
           </div>
@@ -53,7 +53,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title"> <a id = "modalSub" target="_blank"></a> </h5>
-            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -84,11 +84,11 @@
               console.log(redditHome)
 
               //render onto page
-              redditApp.scripts.renderRedditList(redditHome.data);
+              homeApp.scripts.renderRedditList(redditHome.data);
             },
             complete: () => {
               // Refresh every 2 minutes
-              setTimeout(()=> {redditApp.scripts.emptyList(); getData();}, 120000);
+              setTimeout(()=> {homeApp.scripts.emptyList(); getData();}, 120000);
 
             }
           });
