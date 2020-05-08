@@ -97,7 +97,7 @@ var homeApp = {
 
 
         //card HTML to be rendered to page
-        var card = $(`<div class="card border-primary"><div class = "card-header"><button type="button" id =${postID} class="btn btn-outline-primary btn-large btn-block">\
+        var card = $(`<div id ="${postID}-card" class="card border-primary"><div class = "card-header"><button type="button" id =${postID} class="btn btn-outline-primary btn-large btn-block">\
           <div class = "font-weight-bold" id = "subreddit"> ${subredditName} </div></button></div>\
           <div class="card-body">\
             <h5 id = "postTitle" class="card-title">${title}</h5>` + body +
@@ -126,24 +126,37 @@ var homeApp = {
 
     searchContent: (searchables) => {
 
-      //light copy of items
-
-
+      // on keyup of searchBox
       $("#searchBox").on('keyup', (e) =>{
+        //light copy of items for each keyup
         var searchItems = Object.assign({}, searchables);
+
         //filter out erroneous keys such as return, control, space, etc.
         if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
+          //grab user input
           var userInput = $('#searchBox').val();
-          console.log(userInput)
 
-          var validValues = Object.values(searchItems);
-          var validKeys = Object.keys(searchItems);
-          for (i in validValues){
-            if (!validValues[i].includes(userInput)){
-              delete searchItems[homeApp.utils.getKeyByValue(searchItems, validValues[i])];
+          //get all Values and Keys
+          var allValues = Object.values(searchItems);
+          var allKeys = Object.keys(searchItems);
+
+          //check if each value is valid, otherwise remove from object to get updated list
+          for (i in allValues){
+            if (!allValues[i].includes(userInput)){
+              delete searchItems[homeApp.utils.getKeyByValue(searchItems, allValues[i])];
             }
           }
-          console.log(searchItems)
+
+          //loop through updated object and hide or show elements
+          for (x in allKeys){
+            //if the item is not in the list, remove it
+            if (!Object.keys(searchItems).includes(allKeys[x])){
+              $(`#${allKeys[x]}-card`).hide(500);
+            //otherwise show it
+            } else {
+              $(`#${allKeys[x]}-card`).show(500);
+            }
+          }
         }
       })
 
