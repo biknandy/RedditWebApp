@@ -127,10 +127,11 @@ var homeApp = {
     searchContent: (searchables) => {
 
       //light copy of items
-      var searchItems = Object.assign({}, searchables);
+
 
       $("#searchBox").on('keyup', (e) =>{
-
+        var searchItems = Object.assign({}, searchables);
+        //filter out erroneous keys such as return, control, space, etc.
         if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
           var userInput = $('#searchBox').val();
           console.log(userInput)
