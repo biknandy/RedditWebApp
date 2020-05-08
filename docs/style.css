@@ -3,3 +3,6 @@ body {background-color: #121212;}
   max-height: 500px;
   width:100%;
 }
+.inline-headers h1, .inline-headers span {
+  display: inline-block;
+}
