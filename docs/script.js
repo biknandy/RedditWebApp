@@ -86,8 +86,8 @@ var redditApp = {
 
 
         //card HTML to be rendered to page
-        var card = $(`<div class="card border-primary"><div class = "card-header"><button type="button" id =${postID} class="btn btn-primary btn-lg btn-block">\
-          <h6 id = "subreddit"> ${subredditName} </h6></button></div>\
+        var card = $(`<div class="card border-primary"><div class = "card-header"><button type="button" id =${postID} class="btn btn-outline-primary btn-large btn-block">\
+          <div class = "font-weight-bold" id = "subreddit"> ${subredditName} </div></button></div>\
           <div class="card-body">\
             <h5 id = "postTitle" class="card-title">${title}</h5>` + body +
             `<div class="container-fluid"><div class = "row">\
@@ -118,7 +118,7 @@ var redditApp = {
 }
 
 // function runportalSearch(){
-// 
+//
 // 	//keyup detects when a keyboard key is released
 // 	$('#praevium-search-box').on('keyup', function(e) {
 // 		//32 is a code that verifies the key is a character
