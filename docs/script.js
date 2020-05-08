@@ -29,9 +29,8 @@ var redditApp = {
             body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image">`
           }
         //if not an image, there may be body text in which case show it
-        } else if (redditData[i].self_text !== undefined) {
-          body = `<p class = "card-text"> ${redditData[i].self_text} </p>`
-
+      } else if (redditData[i].selftext != "" && redditData[i].selftext < 500) {
+          body = `<p class = "card-text"> ${redditData[i].selftext} </p>`
         //otherwise no body
         } else {
           body = '<p></p>'
