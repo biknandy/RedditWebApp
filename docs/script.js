@@ -43,7 +43,7 @@ var redditApp = {
           <div class="card-body">\
             <h5 id = "postTitle" class="card-title">${redditData[i].title}</h5>` + body +
             `<div class="container-fluid"><div class = "row">\
-                <p class="card-text col-6 mt-2"><a id = "redLink" href="https://reddit.com/${redditData[i].permalink} target="_blank">Reddit Link</a></p>\
+                <p class="card-text col-6 mt-2"><a id = "redLink" href="https://reddit.com/${redditData[i].permalink}" target="_blank">Reddit Link</a></p>\
                 <p class="card-text col-6 text-right mt-2"><small id = "author" class="text-muted"> ${redditData[i].author}</small></p>\
               </div></div></div></div>`);
 
