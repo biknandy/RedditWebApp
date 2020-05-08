@@ -28,7 +28,7 @@ var redditApp = {
           } else {
             body = `<img id = "img" class = "img-fluid" src=${redditData[i].url} alt="Card image">`
           }
-        //if not an image, there may be body text in which case show it
+        //if not an image, there may be body text in which case show it (but don't show if the text is extremely long)
       } else if (redditData[i].selftext != "" && redditData[i].selftext < 500) {
           body = `<p class = "card-text"> ${redditData[i].selftext} </p>`
         //otherwise no body
@@ -38,7 +38,7 @@ var redditApp = {
 
 
         //card HTML to be rendered to page
-        var card = $(`<div class="card"><div class = "card-header"><button type="button" id =${redditData[i].id} class="btn btn-primary btn-lg btn-block">\
+        var card = $(`<div class="card border-primary"><div class = "card-header"><button type="button" id =${redditData[i].id} class="btn btn-primary btn-lg btn-block">\
           <h6 id = "subreddit"> ${redditData[i].subreddit_name_prefixed} </h6></button></div>\
           <div class="card-body">\
             <h5 id = "postTitle" class="card-title">${redditData[i].title}</h5>` + body +
