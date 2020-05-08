@@ -25,9 +25,9 @@ const r = new snoowrap({
 app.get('/api/reddit/', (req, res) => {
 
   //get the top 10 posts of r/popular from reddit
-  r.getSubreddit('popular').getHot({limit: 10}).then(redditData =>{
+  r.getSubreddit('popular').getHot({limit: 13}).then(redditData =>{
     //show in terminal
-    console.log(redditData)
+    // console.log(redditData)
 
     //send data in a stringified obejct
     res.send(
@@ -39,7 +39,7 @@ app.get('/api/reddit/', (req, res) => {
 })
 
 app.get('/api/reddit/upvote', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const id = req.body;
   //upvote a post based on ID
   r.getSubmission(id).upvote();

@@ -53,6 +53,9 @@ var redditApp = {
       $('#modalBody').html(body);
       $('#modalUps').text(event.data.ups);
       $('#modalAuthor').text(event.data.author);
+
+      // event.preventDefault();
+
       $('#postModal').modal('show');
 
 
@@ -89,6 +92,8 @@ var redditApp = {
 
         //append HTML to the card deck
         card.appendTo('#cardDeck');
+
+
 
         // click handler for each of the list view header button
         $(`#${redditData[i].id}`).click(redditData[i], redditApp.scripts.renderModal);
