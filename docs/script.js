@@ -23,6 +23,20 @@ var homeApp = {
   //general scripts for application
   scripts: {
 
+    addRemoveFavorites: (event) => {
+      if (event.data.favArray.includes(event.data.id) === false){
+        event.data.favArray.push(event.data.id);
+      } else {
+        const index = event.data.favArray.indexOf(event.data.id);
+        if (index > -1) {
+          event.data.favArray.splice(index, 1);
+        }
+      }
+
+      localStorage.setItem('fav', JSON.stringify(event.data.favArray))
+      console.log(event.data.favArray)
+    },
+
     //generate Body pased on image or text
     generateBody: (url, bodyText, flag) => {
       //check if image exists
@@ -116,10 +130,8 @@ var homeApp = {
         // click handler for each of the list view header button
         $(`#${postID}`).click(redditData[i], homeApp.scripts.renderModal);
 
-        $(`#${postID}-fav`).click(function(){
-          favorites.push(postID);
-          console.log(favorites)
-        });
+        $(`#${postID}-fav`).click({id: postID, favArray: favorites}, homeApp.scripts.addRemoveFavorites);
+
 
       }
 
