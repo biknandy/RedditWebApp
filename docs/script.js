@@ -54,7 +54,6 @@ var redditApp = {
       $('#modalUps').html('<i class="fas fa-arrow-up"></i> &nbsp;' + event.data.ups);
       $('#modalAuthor').text(event.data.author);
       $(`#modalUpButton`).click({id: event.data.id}, redditApp.scripts.upvote);
-      // event.preventDefault();
 
       $('#postModal').modal('show');
 
