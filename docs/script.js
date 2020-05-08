@@ -162,7 +162,6 @@ var homeApp = {
 
       $("#searchForm").submit((e) =>{
         e.preventDefault();
-        console.log(searchables)
       })
 
     },
