@@ -33,9 +33,8 @@ var redditApp = {
           return `<img style="max-height:500px;" id = "img" class = "img-fluid" src=${url} alt="Card image">`
         }
       //if not an image, there may be body text in which case show it (but don't show if the text is extremely long)
-      } else if (bodyText != "" && bodyText.length < 500) {
+      } else if (bodyText != "" && bodyText.length < 1000) {
         return `<p> ${bodyText} </p>`
-
       //if a regular url
       } else if (!url.includes("reddit.com") && !url.includes("redd.it")) {
         return `<p> <a href="${url}" target="_blank"> ${url} </a> </p>`
