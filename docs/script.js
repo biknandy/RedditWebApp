@@ -28,7 +28,7 @@ var redditApp = {
           return `<img id = "img" class = "img-fluid" src=${url.slice(0, -1)} alt="Card Image">`
         // otherwise it's a regular photo
         } else {
-          return `<img id = "img" class = "img-fluid" src=${url} alt="Card image">`
+          return `<img style="max-height:500px;" id = "img" class = "img-fluid" src=${url} alt="Card image">`
         }
       //if not an image, there may be body text in which case show it (but don't show if the text is extremely long)
       } else if (bodyText != "" && bodyText.length < 500) {

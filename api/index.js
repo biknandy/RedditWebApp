@@ -25,7 +25,7 @@ const r = new snoowrap({
 app.get('/api/reddit/', (req, res) => {
 
   //get the top 10 posts of r/popular from reddit
-  r.getSubreddit('popular').getHot({limit: 13}).then(redditData =>{
+  r.getSubreddit('popular').getHot({limit: 10}).then(redditData =>{
     //show in terminal
     // console.log(redditData)
 
