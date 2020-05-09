@@ -1,9 +1,10 @@
 import Chance from 'chance';
 const chance = new Chance;
-describe('My First Test', () => {
+describe('My Tests', () => {
 
-  const randomText = chance.string({length: 5})
+  const randomText = chance.string({length: 50})
 
+  //reload before each test
   beforeEach(() =>{
     cy.visit('http://localhost:5000/docs/')
   })
@@ -24,18 +25,22 @@ describe('My First Test', () => {
     })
   })
 
+  //check if search causes hidden elements
   it('Test if search filters', () => {
     cy.get('input').type(randomText);
+    cy.get('#cardDeck').children(($elem) => {
+      $elem.should('not.be.visibile')
+    })
   })
 
   //check if all elements = 15
-  it('Check Local Storage', () => {
+  it('Check Local Storage on heart click', () => {
     cy.get('.heart').click({multiple: true}).should(() => {
       expect(JSON.parse(localStorage.getItem('fav')).length).to.eq(15)
     })
   })
 
-  //tests for favorite bars
+  //tests for favorite bar button
 
   //tests for heart then refresh
 
