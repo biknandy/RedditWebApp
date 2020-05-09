@@ -2,6 +2,7 @@ import Chance from 'chance';
 const chance = new Chance;
 describe('My Tests', () => {
 
+  //generate random string of 50 chars
   const randomText = chance.string({length: 50})
 
   //reload before each test
