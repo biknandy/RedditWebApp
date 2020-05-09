@@ -1,4 +1,14 @@
 body {background-color: #121212;}
+#loading {
+    background: url('loading.svg') no-repeat center center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999999;
+}
+
 .img-max {
   max-height: 500px;
   width:100%;

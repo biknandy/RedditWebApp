@@ -17,6 +17,7 @@
     <script type="text/javascript" src="script.js"></script>
   </head>
   <body>
+    <div id="loading"></div>
     <!-- sideBar for favorites -->
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -90,7 +91,15 @@
 
 
     <script>
+    $(document)
 
+       // Show loading animation when retreiving ajax data
+      .ajaxStart(function() {
+          $('#loading').show();
+      })
+      .ajaxStop(function() {
+          $('#loading').hide();
+      });
 
       // open and close Sidebar for favorites
       openNav = () => {
