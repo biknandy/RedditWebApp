@@ -28,7 +28,7 @@ var homeApp = {
       //if the element is not in the array, add it
       if (event.data.favArray.includes(event.data.id) === false){
         event.data.favArray.push(event.data.id);
-
+        console.log(event.data.id)
         //add to html
         $("#favButtons").append(`<button type="button" id="${event.data.id}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${event.data.sub}</button>`);
 

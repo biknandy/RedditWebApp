@@ -131,7 +131,7 @@
                 $("#favButtons").empty();
                 for (i in favs){
                   var sub = homeApp.utils.getObjectFromArray(favs[i], redditHome.data).subreddit_name_prefixed;
-                  $("#favButtons").append(`<button type="button" id={"${favs[i]}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${sub}</button>`);
+                  $("#favButtons").append(`<button type="button" id="${favs[i]}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${sub}</button>`);
                   $(`#${favs[i]}-heart`).toggleClass("far fas");
                 }
               }
