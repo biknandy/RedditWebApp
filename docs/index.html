@@ -103,7 +103,6 @@
           $("#main").css("margin-left", "20vw");
         }
       }
-
       closeNav = () => {
         $("#mySidebar").css("width", "0");
         $("#main").css("margin-left", "0");
@@ -130,10 +129,14 @@
               //load elements into the sidebar
               if (favs!== null) {
                 $("#favButtons").empty();
+
+                //loop through all favs in localStorage
                 for (i in favs){
                   var data = homeApp.utils.getObjectFromArray(favs[i], redditHome.data);
                   $("#favButtons").append(`<button type="button" id="${favs[i]}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${data.subreddit_name_prefixed}</button>`);
                   $(`#${favs[i]}-heart`).toggleClass("far fas");
+
+                  //add onclick to the buttons on sidebar
                   $(`#${favs[i]}-fav-btn`).click(data, homeApp.scripts.renderModal);
                 }
               }

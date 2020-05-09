@@ -27,8 +27,9 @@ var homeApp = {
     addRemoveFavorites: (event) => {
       //if the element is not in the array, add it
       if (event.data.favArray.includes(event.data.id) === false){
+        //add to the favorite array
         event.data.favArray.push(event.data.id);
-        console.log(event.data.allData)
+
         //add to html
         $("#favButtons").append(`<button type="button" id="${event.data.id}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${event.data.sub}</button>`);
 
@@ -48,7 +49,7 @@ var homeApp = {
       }
       //add to localstorage
       localStorage.setItem('fav', JSON.stringify(event.data.favArray))
-      console.log(event.data.favArray)
+
     }, //END: addRemoveFavorites
 
     //generate Body pased on image or text
