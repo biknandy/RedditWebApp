@@ -28,7 +28,16 @@ var homeApp = {
       //if the element is not in the array, add it
       if (event.data.favArray.includes(event.data.id) === false){
         event.data.favArray.push(event.data.id);
-        $("#favButtons").append(`<button type="button" id={${event.data.id}-fav-btn} class="btn btn-primary btn-md btn-block my-3">${event.data.sub}</button>`);
+
+        //add to html
+        $("#favButtons").append(`<button type="button" id="${event.data.id}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${event.data.sub}</button>`);
+
+        //console.log("TEST")
+        //var modalData = homeApp.utils.getObjectFromArray(event.data.id, event.data.allData)
+
+        // click handler for each of the list view header button
+        //$(`#${event.data.id}-fav-btn`).click(modalData, homeApp.scripts.renderModal);
+
       //otherwise remove it
       } else {
         //remove using index of the element
@@ -36,6 +45,8 @@ var homeApp = {
         if (index > -1) {
           event.data.favArray.splice(index, 1);
         }
+
+        //remove html
         $(`#${event.data.id}-fav-btn`).remove();
       }
       //add to localstorage
@@ -94,12 +105,14 @@ var homeApp = {
 
       //list of favorite items
       var favorites = [];
+
+      //retreive local stroage if it exists
       if (window.localStorage.length == 0){
         favorites = []
       } else {
         favorites = JSON.parse(localStorage.getItem('fav'))
       }
-      console.log(favorites)
+      // console.log(favorites)
 
       //create directory of searchable objects
       var searchElements = {}
@@ -141,10 +154,10 @@ var homeApp = {
         $(`#${postID}`).click(redditData[i], homeApp.scripts.renderModal);
 
         //click handler for heart element
-        $(`#${postID}-fav`).click({id: postID, favArray: favorites, sub: subredditName}, homeApp.scripts.addRemoveFavorites);
+        $(`#${postID}-fav`).click({id: postID, favArray: favorites, sub: subredditName, allData: redditData[i]}, homeApp.scripts.addRemoveFavorites);
 
       }
-
+      console.log(favorites)
       //Toggle click of heart for changing color
       $(".heart").click(function() {
         $(this).toggleClass("far fas");
