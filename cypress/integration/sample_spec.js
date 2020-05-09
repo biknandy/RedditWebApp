@@ -40,11 +40,27 @@ describe('My Tests', () => {
     })
   })
 
-  //tests for favorite bar button
-  it('Favorite Bar button view', () => {
-
+  //tests for heart and sidebar on refresh
+  it('Check if favorites persists on refresh', () => {
+    cy.get('.heart').click({multiple: true}).should(() => {
+      cy.reload()
+      cy.get('#favButtons').find('.btn-primary').should('have.length', 15)
+      cy.get('.heart').should('have.class', 'fas')
+    })
   })
 
-  //tests for heart then refresh
+  //check modal opens on click of favorites in sidebar
+  it('Check if favorite buttons open modal', () => {
+    cy.get('.heart').click({multiple: true});
+    cy.get('.fa-bars').click();
+
+    cy.get('#favButtons').find('.btn-md').each(($btn)=> {
+      cy.get($btn).click()
+      cy.wait(500)
+      cy.get('.modal').should('be.visible')
+      cy.get("#closeBtn").click()
+    })
+
+  })
 
 })
