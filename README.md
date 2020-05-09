@@ -14,6 +14,10 @@ You can install these from the following sites:
 
 ---
 
+Javascript & HTML code in directory `/docs`
+
+Server & Node in directory `/api`
+
 Follow these steps in order to view website: 
 1. Clone this repo to dev environment 
 
