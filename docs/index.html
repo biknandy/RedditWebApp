@@ -91,15 +91,14 @@
 
 
     <script>
-    $(document)
-
-       // Show loading animation when retreiving ajax data
-      .ajaxStart(function() {
-          $('#loading').show();
-      })
-      .ajaxStop(function() {
-          $('#loading').hide();
-      });
+      // Show loading animation when retreiving ajax data
+      $(document)
+        .ajaxStart(function() {
+            $('#loading').show();
+        })
+        .ajaxStop(function() {
+            $('#loading').hide();
+        });
 
       // open and close Sidebar for favorites
       openNav = () => {
