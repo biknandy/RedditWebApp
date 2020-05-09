@@ -15,6 +15,7 @@ var homeApp = {
       return result;
     }, //END: getObjectFromArray
 
+    //function to retreive a key by its value in object
     getKeyByValue: (object, value) => {
       return Object.keys(object).find(key => object[key] === value);
     }, //END: getKeyByValue
@@ -77,6 +78,49 @@ var homeApp = {
         return '<p></p>'
       }
     }, //END: generateBody
+
+    //Active search bar on homepage
+    searchContent: (searchables) => {
+      // on keyup of searchBox
+      $("#searchBox").on('keyup', (e) =>{
+        //light copy of items for each keyup
+        var searchItems = Object.assign({}, searchables);
+
+        //filter out erroneous keys such as return, control, space, etc.
+        if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
+          //grab user input
+          var userInput = $('#searchBox').val().toLowerCase();
+
+          //get all Values and Keys
+          var allValues = Object.values(searchItems);
+          var allKeys = Object.keys(searchItems);
+
+          //check if each value is valid, otherwise remove from object to get updated list
+          for (i in allValues){
+            if (!allValues[i].includes(userInput)){
+              delete searchItems[homeApp.utils.getKeyByValue(searchItems, allValues[i])];
+            }
+          }
+
+          //loop through updated object and hide or show elements
+          for (x in allKeys){
+            //if the item is not in the list, remove it
+            if (!Object.keys(searchItems).includes(allKeys[x])){
+              $(`#${allKeys[x]}-card`).hide(400);
+            //otherwise show it
+            } else {
+              $(`#${allKeys[x]}-card`).show(400);
+            }
+          }
+        }
+      })
+
+      //don't actually search for anything by the search button
+      $("#searchForm").submit((e) =>{
+        e.preventDefault();
+      })
+
+    }, //END: searchContent
 
     //render the Modal for a button click
     renderModal: (event) => {
@@ -155,7 +199,7 @@ var homeApp = {
         $(`#${postID}-fav`).click({id: postID, favArray: favorites, sub: subredditName, allData: redditData[i]}, homeApp.scripts.addRemoveFavorites);
 
       }
-      console.log(favorites)
+
       //Toggle click of heart for changing color
       $(".heart").click(function() {
         $(this).toggleClass("far fas");
@@ -170,48 +214,7 @@ var homeApp = {
       $('#cardDeck').empty();
     }, //END: emptyList
 
-    searchContent: (searchables) => {
 
-      // on keyup of searchBox
-      $("#searchBox").on('keyup', (e) =>{
-        //light copy of items for each keyup
-        var searchItems = Object.assign({}, searchables);
-
-        //filter out erroneous keys such as return, control, space, etc.
-        if (e.which !== 32 && e.which !== 16 && e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
-          //grab user input
-          var userInput = $('#searchBox').val().toLowerCase();
-
-          //get all Values and Keys
-          var allValues = Object.values(searchItems);
-          var allKeys = Object.keys(searchItems);
-
-          //check if each value is valid, otherwise remove from object to get updated list
-          for (i in allValues){
-            if (!allValues[i].includes(userInput)){
-              delete searchItems[homeApp.utils.getKeyByValue(searchItems, allValues[i])];
-            }
-          }
-
-          //loop through updated object and hide or show elements
-          for (x in allKeys){
-            //if the item is not in the list, remove it
-            if (!Object.keys(searchItems).includes(allKeys[x])){
-              $(`#${allKeys[x]}-card`).hide(400);
-            //otherwise show it
-            } else {
-              $(`#${allKeys[x]}-card`).show(400);
-            }
-          }
-        }
-      })
-
-      //don't actually search for anything by the search button
-      $("#searchForm").submit((e) =>{
-        e.preventDefault();
-      })
-
-    }, //END: searchContent
 
 
   } //END: scripts
