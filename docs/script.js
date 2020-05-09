@@ -23,6 +23,35 @@ var homeApp = {
   //general scripts for application
   scripts: {
 
+    //add or remove favorites to local storage
+    addRemoveFavorites: (event) => {
+      //if the element is not in the array, add it
+      if (event.data.favArray.includes(event.data.id) === false){
+        //add to the favorite array
+        event.data.favArray.push(event.data.id);
+
+        //add to html
+        $("#favButtons").append(`<button type="button" id="${event.data.id}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${event.data.sub}</button>`);
+
+        // click handler for each of the list view header button
+        $(`#${event.data.id}-fav-btn`).click(event.data.allData, homeApp.scripts.renderModal);
+
+      //otherwise remove it
+      } else {
+        //remove using index of the element
+        const index = event.data.favArray.indexOf(event.data.id);
+        if (index > -1) {
+          event.data.favArray.splice(index, 1);
+        }
+
+        //remove html
+        $(`#${event.data.id}-fav-btn`).remove();
+      }
+      //add to localstorage
+      localStorage.setItem('fav', JSON.stringify(event.data.favArray))
+
+    }, //END: addRemoveFavorites
+
     //generate Body pased on image or text
     generateBody: (url, bodyText, flag) => {
       //check if image exists
@@ -72,6 +101,17 @@ var homeApp = {
     // reddit data formatting and rending in list view
     renderRedditList: (redditData) => {
 
+      //list of favorite items
+      var favorites = [];
+
+      //retreive local stroage if it exists
+      if (window.localStorage.length == 0){
+        favorites = []
+      } else {
+        favorites = JSON.parse(localStorage.getItem('fav'))
+      }
+      // console.log(favorites)
+
       //create directory of searchable objects
       var searchElements = {}
 
@@ -101,7 +141,7 @@ var homeApp = {
           <div class="card-body">\
             <h5 id = "postTitle" class="card-title">${title}</h5>` + body +
             `<div class="container-fluid"><div class = "row">\
-                <p class="card-text col-6 mt-2"><a id = "redLink" href="https://reddit.com/${link}" target="_blank">Link</a></p>\
+                <div id="${postID}-fav" class="card-text col-6 mt-2"><i id="${postID}-heart" class="heart far fa-heart"></i> </div>\
                 <p class="card-text col-6 text-right mt-2"><small id = "author" class="text-muted"> ${postAuthor}</small></p>\
               </div></div></div></div>`);
 
@@ -109,11 +149,18 @@ var homeApp = {
         card.appendTo('#cardDeck');
 
         // click handler for each of the list view header button
-        $(`#${redditData[i].id}`).click(redditData[i], homeApp.scripts.renderModal);
+        $(`#${postID}`).click(redditData[i], homeApp.scripts.renderModal);
+
+        //click handler for heart element
+        $(`#${postID}-fav`).click({id: postID, favArray: favorites, sub: subredditName, allData: redditData[i]}, homeApp.scripts.addRemoveFavorites);
 
       }
+      console.log(favorites)
+      //Toggle click of heart for changing color
+      $(".heart").click(function() {
+        $(this).toggleClass("far fas");
+      });
 
-      console.log(searchElements)
       //activate searchBar
       homeApp.scripts.searchContent(searchElements);
     }, //END: renderRedditList

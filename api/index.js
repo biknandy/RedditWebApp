@@ -35,6 +35,8 @@ app.get('/api/reddit/', (req, res) => {
         data: redditData
       })
     );
+  }).catch((err) => {
+    console.log(err)
   });
 })
 
