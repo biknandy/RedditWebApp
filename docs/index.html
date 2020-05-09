@@ -17,13 +17,14 @@
     <script type="text/javascript" src="script.js"></script>
   </head>
   <body>
+    <!-- sideBar for favorites -->
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <h4 class = "text-center text-white mb-2"> <i class="fas fa-heart"></i> Favorites </h4>
-      <button type="button" class="btn btn-primary btn-md btn-block mt-2">Testing</button>
-      <button type="button" class="btn btn-primary btn-md btn-block mt-2">Testing</button>
-
+      <h4 class = "text-center text-white"> <i class="fas fa-heart"></i> Favorites </h4>
+      <div id = "favButtons" class= "mt-4"></div>
     </div>
+
+    <!-- Main Page -->
     <div class = "main">
       <nav style="background-color: #121212" class="navbar navbar-dark">
         <button class="btn btn-lg btn-dark" onclick="openNav()"><i class="fas fa-bars"></i></button>
@@ -89,7 +90,7 @@
 
 
     <script>
-      
+
 
       // open and close Sidebar for favorites
       openNav = () => {
@@ -122,6 +123,14 @@
 
               //render onto page
               homeApp.scripts.renderRedditList(redditHome.data);
+
+              //retreive favorites to heart on the page after it loads
+              const favs = JSON.parse(localStorage.getItem('fav'))
+              $("#favButtons").empty();
+              for (i in favs){
+                $("#favButtons").append(`<button type="button" id={${favs[i]}-fav-btn} class="btn btn-primary btn-md btn-block my-3">${favs[i]}</button>`);
+                $(`#${favs[i]}-heart`).toggleClass("fas far");
+              }
             },
             complete: () => {
               // Refresh every 5 minutes

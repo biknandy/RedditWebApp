@@ -23,19 +23,31 @@ var homeApp = {
   //general scripts for application
   scripts: {
 
+    //add or remove favorites to local storage
     addRemoveFavorites: (event) => {
+      //if the element is not in the array, add it
       if (event.data.favArray.includes(event.data.id) === false){
         event.data.favArray.push(event.data.id);
+
+      //otherwise remove it
       } else {
+        //remove using index of the element
         const index = event.data.favArray.indexOf(event.data.id);
         if (index > -1) {
           event.data.favArray.splice(index, 1);
         }
+        
       }
-
+      //add to localstorage
       localStorage.setItem('fav', JSON.stringify(event.data.favArray))
-      console.log(event.data.favArray)
-    },
+
+      //add from localstorage to the sidebar
+      const favs = JSON.parse(localStorage.getItem('fav'))
+      $("#favButtons").empty();
+      for (i in favs){
+        $("#favButtons").append(`<button type="button" id={${favs[i]}-fav-btn} class="btn btn-primary btn-md btn-block my-3">${favs[i]}</button>`);
+      }
+    }, //END: addRemoveFavorites
 
     //generate Body pased on image or text
     generateBody: (url, bodyText, flag) => {
@@ -118,26 +130,22 @@ var homeApp = {
           <div class="card-body">\
             <h5 id = "postTitle" class="card-title">${title}</h5>` + body +
             `<div class="container-fluid"><div class = "row">\
-                <div id="${postID}-fav" class="card-text col-6 mt-2"><i class="heart far fa-heart"></i> </div>\
+                <div id="${postID}-fav" class="card-text col-6 mt-2"><i id="${postID}-heart" class="heart far fa-heart"></i> </div>\
                 <p class="card-text col-6 text-right mt-2"><small id = "author" class="text-muted"> ${postAuthor}</small></p>\
               </div></div></div></div>`);
 
         //append HTML to the card deck
         card.appendTo('#cardDeck');
 
-
-
         // click handler for each of the list view header button
         $(`#${postID}`).click(redditData[i], homeApp.scripts.renderModal);
 
-        $(`#${postID}-fav`).click({id: postID, favArray: favorites}, homeApp.scripts.addRemoveFavorites);
-
+        //click handler for heart element
+        $(`#${postID}-fav`).click({id: postID, favArray: favorites, sub: subredditName}, homeApp.scripts.addRemoveFavorites);
 
       }
 
-
-
-      //Toggle click of heart
+      //Toggle click of heart for changing color
       $(".heart").click(function() {
         $(this).toggleClass("far fas");
       });
