@@ -26,14 +26,14 @@ describe('My Tests', () => {
   })
 
   //check if search causes hidden elements
-  it('Test if search filters', () => {
+  it('Test if search filters and hides elements', () => {
     cy.get('input').type(randomText);
     cy.get('#cardDeck').children(($elem) => {
       $elem.should('not.be.visibile')
     })
   })
 
-  //check if all elements = 15
+  //check if all elements in localStorage = 15
   it('Check Local Storage on heart click', () => {
     cy.get('.heart').click({multiple: true}).should(() => {
       expect(JSON.parse(localStorage.getItem('fav')).length).to.eq(15)
@@ -41,6 +41,9 @@ describe('My Tests', () => {
   })
 
   //tests for favorite bar button
+  it('Favorite Bar button view', () => {
+
+  })
 
   //tests for heart then refresh
 
