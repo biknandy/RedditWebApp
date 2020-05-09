@@ -127,12 +127,14 @@
               //retreive favorites to heart on the page
               const favs = JSON.parse(localStorage.getItem('fav'))
 
+              //load elements into the sidebar
               if (favs!== null) {
                 $("#favButtons").empty();
                 for (i in favs){
-                  var sub = homeApp.utils.getObjectFromArray(favs[i], redditHome.data).subreddit_name_prefixed;
-                  $("#favButtons").append(`<button type="button" id="${favs[i]}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${sub}</button>`);
+                  var data = homeApp.utils.getObjectFromArray(favs[i], redditHome.data);
+                  $("#favButtons").append(`<button type="button" id="${favs[i]}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${data.subreddit_name_prefixed}</button>`);
                   $(`#${favs[i]}-heart`).toggleClass("far fas");
+                  $(`#${favs[i]}-fav-btn`).click(data, homeApp.scripts.renderModal);
                 }
               }
 

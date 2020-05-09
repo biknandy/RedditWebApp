@@ -28,15 +28,12 @@ var homeApp = {
       //if the element is not in the array, add it
       if (event.data.favArray.includes(event.data.id) === false){
         event.data.favArray.push(event.data.id);
-        console.log(event.data.id)
+        console.log(event.data.allData)
         //add to html
         $("#favButtons").append(`<button type="button" id="${event.data.id}-fav-btn" class="btn btn-primary btn-md btn-block my-3">${event.data.sub}</button>`);
 
-        //console.log("TEST")
-        //var modalData = homeApp.utils.getObjectFromArray(event.data.id, event.data.allData)
-
         // click handler for each of the list view header button
-        //$(`#${event.data.id}-fav-btn`).click(modalData, homeApp.scripts.renderModal);
+        $(`#${event.data.id}-fav-btn`).click(event.data.allData, homeApp.scripts.renderModal);
 
       //otherwise remove it
       } else {
