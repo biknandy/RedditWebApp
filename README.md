@@ -31,4 +31,4 @@ Follow these steps in order to view website:
 
 6. Visit `http://localhost:5000/docs/` and site should be running 
 
-You can also visit `brothasfom.org/RedditWebApp/` without servering app
+You can also visit `brothasfom.org/RedditWebApp/` without servering app but AFTER running the node server
