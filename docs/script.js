@@ -28,7 +28,7 @@ var homeApp = {
       //if the element is not in the array, add it
       if (event.data.favArray.includes(event.data.id) === false){
         event.data.favArray.push(event.data.id);
-
+        $("#favButtons").append(`<button type="button" id={${event.data.id}-fav-btn} class="btn btn-primary btn-md btn-block my-3">${event.data.sub}</button>`);
       //otherwise remove it
       } else {
         //remove using index of the element
@@ -36,17 +36,11 @@ var homeApp = {
         if (index > -1) {
           event.data.favArray.splice(index, 1);
         }
-        
+        $(`#${event.data.id}-fav-btn`).remove();
       }
       //add to localstorage
       localStorage.setItem('fav', JSON.stringify(event.data.favArray))
-
-      //add from localstorage to the sidebar
-      const favs = JSON.parse(localStorage.getItem('fav'))
-      $("#favButtons").empty();
-      for (i in favs){
-        $("#favButtons").append(`<button type="button" id={${favs[i]}-fav-btn} class="btn btn-primary btn-md btn-block my-3">${favs[i]}</button>`);
-      }
+      console.log(event.data.favArray)
     }, //END: addRemoveFavorites
 
     //generate Body pased on image or text
@@ -99,7 +93,13 @@ var homeApp = {
     renderRedditList: (redditData) => {
 
       //list of favorite items
-      var favorites = []
+      var favorites = [];
+      if (window.localStorage.length == 0){
+        favorites = []
+      } else {
+        favorites = JSON.parse(localStorage.getItem('fav'))
+      }
+      console.log(favorites)
 
       //create directory of searchable objects
       var searchElements = {}

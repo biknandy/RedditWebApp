@@ -124,12 +124,12 @@
               //render onto page
               homeApp.scripts.renderRedditList(redditHome.data);
 
-              //retreive favorites to heart on the page after it loads
+              //retreive favorites to heart on the page
               const favs = JSON.parse(localStorage.getItem('fav'))
               $("#favButtons").empty();
               for (i in favs){
                 $("#favButtons").append(`<button type="button" id={${favs[i]}-fav-btn} class="btn btn-primary btn-md btn-block my-3">${favs[i]}</button>`);
-                $(`#${favs[i]}-heart`).toggleClass("fas far");
+                $(`#${favs[i]}-heart`).toggleClass("far fas");
               }
             },
             complete: () => {
