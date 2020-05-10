@@ -2,6 +2,8 @@
 ### Edify Coding Assignment
 ### By Bik Nandy
 
+[YOUTUBE VIDEO LINK](https://youtu.be/lbuL9Zf2YcY)
+
 ---
 
 In order to run application, you must have YARN package manager and NODEjs installed on local machine.
