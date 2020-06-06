@@ -31,5 +31,3 @@ Follow these steps in order to view website:
 5. After local server is running on port 8080, navigate to home directory and run `serve`
 
 6. Visit `http://localhost:5000/docs/` and site should be running 
-
-You can also visit `brothasfom.org/RedditWebApp/` without servering app but AFTER running the node server
