@@ -1,5 +1,4 @@
 # RedditWebApp
-### Edify Coding Assignment
 ### By Bik Nandy
 
 [YOUTUBE VIDEO LINK](https://youtu.be/lbuL9Zf2YcY)
